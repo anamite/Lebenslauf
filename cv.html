@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Anand Krishnan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-text: #1f2937;
+            --secondary-text: #6b7280;
+            --accent-color: #2563eb;
+            --bg-sidebar: #f8fafc;
+            --bg-main: #ffffff;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #555;
+            font-size: 11.5px; /* Optimised for single page */
+            line-height: 1.4;
+            color: var(--primary-text);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* A4 Page Container */
+        .page {
+            background: white;
+            width: 210mm;
+            height: 297mm; /* Enforce A4 height */
+            display: grid;
+            grid-template-columns: 30% 70%;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden; /* Prevent spillover */
+        }
+
+        /* --- Sidebar (Left) --- */
+        .sidebar {
+            background-color: var(--bg-sidebar);
+            padding: 30px 20px; /* Reduced padding */
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* Reduced gap between blocks */
+        }
+
+        .profile-img-container {
+            width: 110px; /* Smaller image to save space */
+            height: 110px;
+            margin: 0 auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background-color: #eee;
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sidebar h2 {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--secondary-text);
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 4px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 11px;
+            color: var(--primary-text);
+        }
+
+        .contact-item svg {
+            width: 14px;
+            height: 14px;
+            color: var(--secondary-text);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .contact-item a { text-decoration: none; color: inherit; }
+
+        .skill-block { margin-bottom: 12px; }
+        
+        .skill-block h3 {
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: var(--primary-text);
+        }
+
+        .skill-list {
+            font-size: 11px;
+            color: #4b5563;
+            line-height: 1.4;
+        }
+
+        /* --- Main Content (Right) --- */
+        .main-content {
+            background-color: var(--bg-main);
+            padding: 30px 30px; /* Reduced padding */
+        }
+
+        header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 26px; /* Slightly smaller header */
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 4px;
+            line-height: 1;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .summary {
+            font-size: 11.5px;
+            color: #4b5563;
+            text-align: justify;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #111827;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            margin-top: 20px; /* Reduced margin */
+            display: flex;
+            align-items: center;
+        }
+        
+        section:first-of-type .section-title { margin-top: 5px; }
+
+        .entry { margin-bottom: 15px; }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .entry-title {
+            font-weight: 700;
+            font-size: 13px;
+            color: #111827;
+        }
+
+        .entry-date {
+            font-size: 11px;
+            color: var(--secondary-text);
+            white-space: nowrap;
+        }
+
+        .entry-company {
+            font-weight: 600;
+            color: #374151;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .entry ul { list-style-type: none; padding-left: 0; }
+
+        .entry ul li {
+            position: relative;
+            padding-left: 12px;
+            margin-bottom: 2px;
+            color: #4b5563;
+            font-size: 11.5px;
+        }
+
+        .entry ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .footnote {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #111827;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* --- Print Specifics --- */
+        @media print {
+            @page { margin: 0; size: A4; }
+            body { background: white; padding: 0; margin: 0; }
+            .page { 
+                box-shadow: none; 
+                width: 210mm; 
+                height: 297mm; 
+                margin: 0; 
+                grid-template-columns: 30% 70%;
+            }
+            .print-btn { display: none; }
+            .sidebar { background-color: #f8fafc !important; -webkit-print-color-adjust: exact; }
+            .main-content { padding-top: 25px; } /* Slight adjustment for print margins */
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn" onclick="window.print()">Download PDF</button>
+
+    <div class="page">
+        <aside class="sidebar">
+            <div class="profile-img-container">
+                <img src="profile.png" alt="Anand Krishnan" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#eee'">
+            </div>
+
+            <div>
+                <h2>Kontakt</h2>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <span style="word-break: break-all;">anandkrishnan2499<br>@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                    <span>+49 174697012</span>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Ingolstadt, Deutschland</span>
+                </div>
+                <div class="contact-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                    </svg>
+                    <a href="https://github.com/anamite">github.com/anamite</a>
+                </div>
+            </div>
+
+            <div>
+                <h2>Technische Kompetenz</h2>
+                <div class="skill-block">
+                    <h3>Sprachen & Frameworks</h3>
+                    <div class="skill-list">Python, React, TypeScript / JS,  C / C++ (Embedded, FreeRTOS), Java</div>
+                </div>
+                <div class="skill-block">
+                    <h3>KI, Automatisierung & Daten</h3>
+                    <div class="skill-list">LLM‑Integration (Function Calling), Prozessautomatisierung, Semantische Suche, OCR‑Pipelines, Datenaufbereitung (ETL), SQLite, PostgreSQL</div>
+                </div>
+                <div class="skill-block">
+                    <h3>Systeme & Tools</h3>
+                    <div class="skill-list">n8n, Llama Index, Linux, Git, REST‑APIs, ROS</div>
+                </div>
+            </div>
+
+            <div>
+                <h2>Sprachen</h2>
+                <ul style="list-style: none; font-size: 11px; color: #4b5563;">
+                    <li style="margin-bottom: 3px;"><strong>Deutsch:</strong> C1 / Fließend</li>
+                    <li style="margin-bottom: 3px;"><strong>Englisch:</strong> C1 / Fließend</li>
+                    <li style="margin-bottom: 3px;"><strong>Hindi:</strong> Fließend</li>
+                    <li><strong>Malayalam:</strong> Muttersprache</li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header>
+                <h1>Anand Krishnan</h1>
+                <p class="subtitle">Wirtschaftsingenieurwesen & Softwareentwicklung</p>
+                <div class="summary">
+                    Werkstudent und angehender Bachelorabsolvent im Wirtschaftsingenieurwesen mit Schwerpunkt auf KI‑basierter Prozessautomatisierung, Datenanalyse und Softwareentwicklung. Erfahrung in der Konzeption und Umsetzung produktionsnaher Automatisierungslösungen, datengetriebener Assistenzsysteme sowie On‑Premise‑Architekturen zur Effizienz‑ und Produktivitätssteigerung in industriellen und unternehmensnahen Prozessen.
+                </div>
+            </header>
+
+            <section>
+                <h2 class="section-title">Abschlussarbeit</h2>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Bachelorarbeit: KI‑basierte Assistenzsysteme</span>
+                        <span class="entry-date">10/2025 – heute</span>
+                    </div>
+                    <div class="entry-company">Akkodis Germany Consulting GmbH | Ingolstadt</div>
+                    <div style="font-size: 11px; font-weight: 600; color: #4b5563; margin-bottom: 4px;">Thema: KI‑basierte Assistenzsysteme zur Prozess‑ und Fehleranalyse</div>
+                    <ul>
+                        <li>Entwurf und Implementierung einer On‑Premise‑KI‑Architektur zur Automatisierung wissensintensiver Analyseprozesse.</li>
+                        <li>Aufbau einer modularen Datenpipeline zur Verarbeitung strukturierter und unstrukturierter Daten (Excel, PDF).</li>
+                        <li>Implementierung einer mehrsprachigen semantischen Suche (DE/EN).</li>
+                        <li>Integration von LLMs mittels Function Calling zur kontextbasierten Informationsbereitstellung.</li>
+                        <li>Evaluation anhand realer Anwendungsszenarien mit messbarer Effizienz‑ und Zeitersparnis.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">Berufserfahrung</h2>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Werkstudent Softwareentwicklung / Prozessautomatisierung</span>
+                        <span class="entry-date">03/2023 – heute</span>
+                    </div>
+                    <div class="entry-company">Akkodis Germany Consulting GmbH | Ingolstadt</div>
+                    <ul>
+                        <li>Entwicklung und Automatisierung interner Software‑Tools zur Unterstützung datenintensiver Analyse‑ und Entscheidungsprozesse.</li>
+                        <li>Konzeption und Implementierung von Python‑basierten Automatisierungslösungen.</li>
+                        <li>Analyse bestehender Workflows und Identifikation von Optimierungspotenzialen.</li>
+                        <li>Debugging, Qualitätssicherung und technische Dokumentation.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Werkstudent Produktion</span>
+                        <span class="entry-date">08/2022 – 09/2022</span>
+                    </div>
+                    <div class="entry-company">Schaeffler AG | Ingolstadt</div>
+                    <ul>
+                        <li>Einblicke in industrielle Produktions‑ und Prozessabläufe.</li>
+                        <li>Verständnis für Effizienz, Standardisierung und Qualitätsanforderungen in Fertigungsumgebungen.</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Werkstudent Embedded‑ & Softwareentwicklung</span>
+                        <span class="entry-date">07/2021 – 08/2021</span>
+                    </div>
+                    <div class="entry-company">Dashfactory GmbH | Leipzig</div>
+                    <ul>
+                        <li>Softwareentwicklung und Testing in C++.</li>
+                        <li>Arbeit mit FreeRTOS‑basierten Systemen und strukturierten Entwicklungsprozessen.</li>
+                    </ul>
+                </div>
+                <div class="footnote">* Frühere Tätigkeiten in Logistik und Produktion während des Studiums (2019–2021)</div>
+            </section>
+
+            <!-- <section>
+                <h2 class="section-title">Projekte (Auswahl)</h2>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">KI‑gestütztes Assistenzsystem zur Prozessanalyse</span>
+                    </div>
+                    <div class="entry-company">Python, LLMs, OCR, Semantische Suche</div>
+                    <ul>
+                        <li>Entwicklung eines Assistenzsystems zur automatisierten Informationsaufbereitung und Entscheidungsunterstützung.</li>
+                        <li>Fokus auf Reduktion manueller Recherche‑ und Analyseaufwände.</li>
+                    </ul>
+                </div>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Autonomer Fahrzeugprototyp (technischer Kontext)</span>
+                    </div>
+                    <div class="entry-company">Python, ROS, Raspberry Pi</div>
+                    <ul>
+                        <li>Entwicklung eines Software‑Prototyps mit Fokus auf Datenverarbeitung, Kommunikation und Systemintegration.</li>
+                    </ul>
+                </div>
+            </section> -->
+
+            <section>
+                <h2 class="section-title">Bildung</h2>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Wirtschaftsingenieurwesen (B.Eng.)</span>
+                        <span class="entry-date">10/2022 – heute</span>
+                    </div>
+                    <div class="entry-company">Technische Hochschule Ingolstadt</div>
+                </div>
+                <div class="entry">
+                    <div class="entry-header">
+                        <span class="entry-title">Robotik (B.Eng.)</span>
+                        <span class="entry-date">10/2020 – 09/2022</span>
+                    </div>
+                    <div class="entry-company">Technische Hochschule Ingolstadt</div>
+                    <div style="font-size: 10px; color: #666;">(Studiengangwechsel nach 4 Semestern)</div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
